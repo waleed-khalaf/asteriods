@@ -8,7 +8,10 @@ with contextlib.redirect_stdout(None):
 def main():
 	# Initialising game
 	pygame.init()
-	player_1 = Player(SCREEN_WIDTH /2, SCREEN_HEIGHT / 2)
+	updateable = pygame.sprite.Group()
+	drawable = pygame.sprite.Group()
+	Player.containers = (updateable, drawable)
+	player = Player(SCREEN_WIDTH /2, SCREEN_HEIGHT / 2)
 	
 	# Create new clock object to maniuplate fps
 	clock = pygame.time.Clock()
@@ -23,11 +26,15 @@ def main():
 				return
 		# fills up screen with black colour
 		screen.fill((0,0,0))
+		# iterates over groups (makes codebase less cluttered)
+		for obj in updateable:
+			obj.update(dt)
 
-		player_1.draw(screen)
-		player_1.update(dt)
+		for obj in drawable:
+			obj.draw(screen)
 		# updates the full display to the screen 
 		pygame.display.flip()
+		# limits framerate to 60fps
 		dt = clock.tick(60) / 1000
 
 if __name__ == "__main__":
