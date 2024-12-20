@@ -28,7 +28,6 @@ def main():
 	# Instationting objects
 	player = Player(SCREEN_WIDTH /2, SCREEN_HEIGHT / 2)
 	af = AsteroidField()
-
 	# Create new clock object to maniuplate fps
 	clock = pygame.time.Clock()
 	# delta time to represent amount of time that has passed
@@ -49,6 +48,11 @@ def main():
 		for obj in asteroids:
 			if obj.hasCollided(player):
 				exit("Game over!")
+
+		for obj in asteroids:
+			for shot in shots:
+				if obj.hasCollided(shot):
+					obj.kill()
 
 		for obj in drawable:
 			obj.draw(screen)
