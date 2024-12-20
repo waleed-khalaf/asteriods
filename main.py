@@ -2,6 +2,7 @@ from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from sys import exit
 import contextlib
 with contextlib.redirect_stdout(None):
 	import pygame
@@ -36,6 +37,10 @@ def main():
 		# iterates over groups (makes codebase less cluttered)
 		for obj in updateable:
 			obj.update(dt)
+		
+		for obj in asteroids:
+			if obj.hasCollided(player):
+				exit("Game over!")
 
 		for obj in drawable:
 			obj.draw(screen)
