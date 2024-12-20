@@ -1,5 +1,7 @@
 from constants import *
 from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 import contextlib
 with contextlib.redirect_stdout(None):
 	import pygame
@@ -8,11 +10,16 @@ with contextlib.redirect_stdout(None):
 def main():
 	# Initialising game
 	pygame.init()
+
 	updateable = pygame.sprite.Group()
 	drawable = pygame.sprite.Group()
+	asteroids = pygame.sprite.Group()
 	Player.containers = (updateable, drawable)
+	Asteroid.containers = (asteroids, updateable, drawable)
+	AsteroidField.containers = (updateable)
+
 	player = Player(SCREEN_WIDTH /2, SCREEN_HEIGHT / 2)
-	
+	af = AsteroidField()
 	# Create new clock object to maniuplate fps
 	clock = pygame.time.Clock()
 	# delta time to represent amount of time that has passed
