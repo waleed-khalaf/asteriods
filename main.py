@@ -1,4 +1,5 @@
 from constants import *
+from player import Player
 import contextlib
 with contextlib.redirect_stdout(None):
 	import pygame
@@ -7,6 +8,7 @@ with contextlib.redirect_stdout(None):
 def main():
 	# Initialising game
 	pygame.init()
+	player_1 = Player(SCREEN_WIDTH /2, SCREEN_HEIGHT / 2)
 	
 	# Create new clock object to maniuplate fps
 	clock = pygame.time.Clock()
@@ -21,6 +23,8 @@ def main():
 				return
 		# fills up screen with black colour
 		screen.fill((0,0,0))
+
+		player_1.draw(screen)
 		# updates the full display to the screen 
 		pygame.display.flip()
 		dt = clock.tick(60) / 1000
